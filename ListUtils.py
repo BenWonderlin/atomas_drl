@@ -1,5 +1,4 @@
 
-
 def link_two_elements(one, two):
     one.set_next(two)
     two.set_prev(one)
