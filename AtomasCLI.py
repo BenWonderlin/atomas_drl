@@ -1,16 +1,14 @@
-
-from RingElements import Atom, Plus, Minus, Root
 from AtomasRing import AtomasRing
 
-class AtomasGame:
+class AtomasCLI:
     
     def __init__(self):
-        self._score = 0
         self._ring = AtomasRing()
 
     def activate(self):
 
-        while(self._ring):
+        while(self._ring.get_game_state()):
+            print(f"\t    Turns Taken: {self._ring.get_turn_count()}     ||     Score: {self._ring.get_score()}     ||     Atom Count: {self._ring.get_atom_count()}\n")
             print(self._ring)
             print("Select a Move\n> ", end = "")
             
@@ -22,12 +20,11 @@ class AtomasGame:
                 except ValueError:
                     print("Please input an integer.")
 
-            score_delta, self._ring = self._ring.take_turn(input_index)
-            self._score += score_delta
+            self._ring.take_turn(input_index)
 
         print(f"GAME OVER | FINAL SCORE: {self._score}")
 
 if __name__ == "__main__":
 
-    game = AtomasGame()
-    game.activate()
+    cli = AtomasCLI()
+    cli.activate()

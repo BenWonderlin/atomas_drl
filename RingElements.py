@@ -1,12 +1,12 @@
 import math
-import Utils
+import ListUtils
 
 class RingElement:
 
     def __init__(self):
         self._prev = None
         self._next = None
-        self._can_transform = False
+        self._transformable = False
 
     def set_next(self, next):
         self._next = next
@@ -20,11 +20,11 @@ class RingElement:
     def get_prev(self):
         return self._prev
 
-    def can_transform(self):
-        return self._can_transform
+    def is_transformable(self):
+        return self._transformable
     
-    def set_transform(self, val):
-        self._can_transform = val
+    def set_transformable(self, val):
+        self._transformable = val
 
     def proc(self):
         return (0, None) # (score delta, new center element)
@@ -39,12 +39,14 @@ class Atom(RingElement):
             21 : "Sc", 22 : "Ti", 23 : "V" , 24 : "Cr", 25 : "Mn"}
 
     def __init__(self, value):
-        self.value = value
+        self._value = value
         super().__init__()
+
+    def get_value(self):
+        return self._value
     
     def __str__(self):
-        return f"( {self._ID_TO_ATOM[self.value]} )"
-
+        return f"( {self._ID_TO_ATOM[self._value]} )"
 
 
 class Plus(RingElement):
@@ -59,6 +61,8 @@ class Plus(RingElement):
 
         while (True):
 
+            num_reactions += 1
+
             if type(prev) == Root:
                 root = prev
                 prev = prev.get_prev()
@@ -69,37 +73,33 @@ class Plus(RingElement):
                 found_root = 1 # root was found while traversing forwards
             elif type(prev) != Atom or type(next) != Atom:
                 break
-            elif prev in seen or next in seen or prev == next: # encounted already-seen elements
+            elif prev in seen or next in seen or prev == next: 
                 break
-            elif prev.value != next.value:
+            elif prev.get_value() != next.get_value():
                 break
-            elif num_reactions == 0: # first reaction
-                num_reactions += 1
-                score += math.floor(1.5 * (next.value + 1)) 
-                center_value = next.value + 1
-                next, prev = next.get_next(), prev.get_prev()
-            else: # chain reaction
-                num_reactions += 1
-                multiplier = 1 + 0.5 * num_reactions
-                score += math.floor(multiplier * (center_value + 1))  # from atomas wiki
-                if next.value >= center_value:
-                    score += 2 * multiplier * (next.value - center_value + 1)
-                center_value += (next.value + 2 if next.value > center_value else 1)
-                next, prev = next.get_next(), prev.get_prev()
+            elif num_reactions == 1: # first reaction
+                score += math.floor(1.5 * (next.get_value() + 1)) 
+                center_value = next.get_value() + 1
+            else: # chain reaction (see atomas wiki for documentation: shorturl.at/hmzG6)
+                multiplier = 1 + (0.5 * num_reactions)
+                score += math.floor(multiplier * (center_value + 1)) 
+                if next.get_value() >= center_value:
+                    score += 2 * multiplier * (next.get_value() - center_value + 1) # apply bonus
+                center_value += (next.get_value() + 2 if next.get_value() > center_value else 1)
+            
+            next, prev = next.get_next(), prev.get_prev()
 
-        # if root was found while scanning for procs, update the 
+        # add resulting element to ring and handle root node
         if num_reactions:
             new_atom = Atom(center_value)
             if found_root == 1:
-                Utils.link_four_elements(prev, new_atom, root, next)
+                ListUtils.link_four_elements(prev, new_atom, root, next)
             elif found_root == -1:
-                Utils.link_four_elements(prev, root, new_atom, next)
+                ListUtils.link_four_elements(prev, root, new_atom, next)
             else:
-                Utils.link_three_elements(prev, new_atom, next)
+                ListUtils.link_three_elements(prev, new_atom, next)
 
         return (score, None)
-
-        
 
     def __str__(self):
         return "( + )"
@@ -108,28 +108,29 @@ class Plus(RingElement):
 class Minus(RingElement):
    
     def proc(self):
-
-        res = self._next
-        prev = self._prev
+        
+        # new center element (res) is element after the root, unless that element is a Root
+        res, prev = self._next, self._prev
 
         if type(self._next) == Root:
 
             root = self._next
-            prev.set_next(root)
-            root.set_prev(prev)
+            ListUtils.link_two_elements(prev, root)
 
             prev = root
             res = root.get_next()
 
+        # extract res from ring
         new_next = res.get_next()
-        prev.set_next(new_next)
-        new_next.set_prev(prev)
-
+        ListUtils(prev, new_next)
         res.set_next(None)
         res.set_prev(None)
-        res.set_transform(True)
+
+        # extracted atom can be turned into a plus
+        res.is_transformable(True)
 
         return (0, res)
+
 
     def __str__(self):
         return "( - )"

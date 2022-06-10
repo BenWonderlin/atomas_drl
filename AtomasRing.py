@@ -1,6 +1,7 @@
 
 import random
 from RingElements import Atom, Plus, Minus, Root
+import ListUtils
 
 class AtomasRing:
 
@@ -21,24 +22,24 @@ class AtomasRing:
 
     def __init__(self):
 
+
         self._root = Root()
         self._score, self._turn_count = 0, 0
-        self._min_atom = self._INIT_MIN_ATOM
-        self._atom_count = self._INIT_ATOM_COUNT
+        self._min_atom, self._atom_count = self._INIT_MIN_ATOM, self._INIT_ATOM_COUNT
         self._turns_since_plus, self._turns_since_minus = 0, 0
+
         self._center_element = self._generate_ring_element()
 
+        # generate and set up ring
         tmp_atom = self._root
         for i in range(self._INIT_ATOM_COUNT):
             new_atom = self._generate_ring_element(include_specials = False)
-            tmp_atom.set_next(new_atom)
-            new_atom.set_prev(tmp_atom)
+            ListUtils.link_two_elements(tmp_atom, new_atom)
             tmp_atom = new_atom
+        ListUtils.link_two_elements(tmp_atom, self._root)
 
         self._turns_since_plus, self._turns_since_minus = 0, 0
-        
-        tmp_atom.set_next(self._root)
-        self._root.set_prev(tmp_atom)
+        self._is_playable = True
 
 
     def _generate_ring_element(self, include_specials = True):
@@ -66,33 +67,67 @@ class AtomasRing:
             self._turns_since_plus += 1
             self._turns_since_minus += 1
             return Atom(random.randint(self._min_atom, self._min_atom + self._ATOM_RANGE))
-    
 
-    # procs plusses. if a reaction is found, the search immediately returns with the score and delta
-    def _proc_plus(self):
+    
+    def _parse_input(self, index):
+        try:
+            index = int(index)
+        except ValueError:
+            raise ValueError("input index cannot be converted to int")
+        if index < -1 or index > self._atom_count:
+            raise IndexError("input index out of range")
+        return index
+
+
+    def _update_atom_count(self):
+        res = 0
         tmp = self._root.get_next()
         while tmp != self._root:
-            if type(tmp) == Plus:
-                score, new_center, atom_delta = tmp.proc()
-                if score:
-                    return (score, atom_delta)
             tmp = tmp.get_next()
-        return (0, 0)
+            res += 1
+        self._atom_count = res
+
+ 
+    # circles the ring and procs the each plus it sees. starts over each time a successful proc occurs.
+    # finally returns when a full loop is traversed without starting any interactions.
+    def _proc_plusses(self):
+
+        res = 0
+        while(True):
+
+            procced_score = 0
+            tmp = self._root.get_next()
+
+            while(tmp != self._root):
+                if type(tmp) == Plus:
+                    procced_score, _ = tmp.proc()
+                    if procced_score:
+                        break
+                tmp = tmp.get_next()
+
+            if procced_score:
+                res += procced_score
+            else:
+                return res
 
 
     def take_turn(self, index):
 
-        if index < -1 or index > self._atom_count:
-            return(0, self)
+        # delegate input parsing
+        index = self._parse_input(index)
 
+        # return immediately if ring is unplayable
+        if not self._is_playable:
+            return
+
+        # handle transformation attempts
         if index == -1:
             if self._center_element.can_transform():
                 self._center_element = Plus()
-                return (0, self)
-            else:
-                return (0, self)
+            return
         
-        if type(self._center_element) != Minus: # don't increment turn count if doing a minus pickup action
+        # don't increment turn count if doing a minus pickup action
+        if type(self._center_element) != Minus:
             self._turn_count += 1
             if self._turn_count == self._RANGE_INCREASE_FREQUENCY:
                 self._min_atom += 1
@@ -102,40 +137,45 @@ class AtomasRing:
         for i in range(index):
             tmp_elt = tmp_elt.get_next()
         new_next = tmp_elt.get_next()
-        new_next.set_prev(self._center_element)
-        self._center_element.set_next(new_next)
-        self._center_element.set_prev(tmp_elt)
-        tmp_elt.set_next(self._center_element)
+        ListUtils.link_three_elements(tmp_elt, self._center_element, new_next)
 
-        # proc it and return score
-        self._center_element.set_transform(False)
-        score_delta, new_center, atom_delta = self._center_element.proc()
+        # proc it and update instance variables
+        self._center_element.set_transformable(False)
+        score_delta, new_center = self._center_element.proc()
         self._center_element = new_center
+        self._score += score_delta
+
+        # proc any existing plusses and update atom count
+        self._score += self._proc_plusses()
+        self._update_atom_count()
+
+        # get new center element if necessary
         if not self._center_element:
             self._center_element = self._generate_ring_element()
-        self._atom_count += atom_delta
 
-        # keep proccing plusses until full loop is made around ring w/o a reacion
-        while(True):
-            plus_score, plus_delta = self._proc_plus()
-            if plus_score:
-                score_delta += plus_score
-                self._atom_count += plus_delta
-            else:
-                break
-
-        # return None if ring is full
+        # mark ring as unplayable if atom cap is reached
         if self._atom_count >= self._MAX_ATOM_COUNT:
-            self._score += score_delta
-            return(score_delta, None)
-
-        self._score += score_delta
-        return (score_delta, self)
+            self._is_playable = False
 
 
+    def get_game_state(self):
+        return self._is_playable
+
+
+    def get_score(self):
+        return self._score
+
+
+    def get_turn_count(self):
+        return self._turn_count
+
+
+    def get_atom_count(self):
+        return self._atom_count
+
+    
     def __str__(self):
-        res = f"\n\tRing Length: {self._atom_count}     ||     SCORE: {self._score}     ||     Turns Taken: {self._turn_count}\n\n"
-        res += f"\t\t\t   Center Element: {self._center_element}\n\n"
+        res = f"\t\t\t\tCenter Element: {self._center_element}\n\n"
         tmp = self._root.get_next()
         res += " -- 0 -- "
         idx = 1
