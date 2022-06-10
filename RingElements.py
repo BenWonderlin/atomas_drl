@@ -1,4 +1,5 @@
 import math
+import Utils
 
 class RingElement:
 
@@ -27,20 +28,6 @@ class RingElement:
 
     def proc(self):
         return (0, None, 1)
-
-    def _link_three_elements(self, one, two, three):
-        one.set_next(two)
-        two.set_prev(one)
-        two.set_next(three)
-        three.set_prev(two)
-
-    def _link_four_elements(self, one, two, three, four):
-        one.set_next(two)
-        two.set_prev(one)
-        two.set_next(three)
-        three.set_prev(two)
-        three.set_next(four)
-        four.set_prev(three)
 
 
 class Atom(RingElement):
@@ -103,11 +90,11 @@ class Plus(RingElement):
         if num_reactions:
             new_atom = Atom(center_value)
             if found_root == 1:
-                self._link_four_elements(prev, new_atom, root, next)
+                Utils.link_four_elements(prev, new_atom, root, next)
             elif found_root == -1:
-                self._link_four_elements(prev, root, new_atom, next)
+                Utils.link_four_elements(prev, root, new_atom, next)
             else:
-                self._link_three_elements(prev, new_atom, next)
+                Utils.link_three_elements(prev, new_atom, next)
 
         return (score, None, 1 - 2 * num_reactions)
 
