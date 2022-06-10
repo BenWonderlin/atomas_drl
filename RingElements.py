@@ -27,7 +27,7 @@ class RingElement:
         self._can_transform = val
 
     def proc(self):
-        return (0, None, 1)
+        return (0, None) # (score delta, new center element)
 
 
 class Atom(RingElement):
@@ -45,7 +45,7 @@ class Atom(RingElement):
     def __str__(self):
         return f"( {self._ID_TO_ATOM[self.value]} )"
 
-# test comment
+
 
 class Plus(RingElement):
     
@@ -62,14 +62,14 @@ class Plus(RingElement):
             if type(prev) == Root:
                 root = prev
                 prev = prev.get_prev()
-                found_root = -1
+                found_root = -1 # -1 indicates that root was found while traversing backwards
             elif type(next) == Root:
                 root = next
                 next = next.get_next()
-                found_root = 1
+                found_root = 1 # root was found while traversing forwards
             elif type(prev) != Atom or type(next) != Atom:
                 break
-            elif prev in seen or next in seen or prev == next:
+            elif prev in seen or next in seen or prev == next: # encounted already-seen elements
                 break
             elif prev.value != next.value:
                 break
@@ -87,6 +87,7 @@ class Plus(RingElement):
                 center_value += (next.value + 2 if next.value > center_value else 1)
                 next, prev = next.get_next(), prev.get_prev()
 
+        # if root was found while scanning for procs, update the 
         if num_reactions:
             new_atom = Atom(center_value)
             if found_root == 1:
@@ -96,7 +97,9 @@ class Plus(RingElement):
             else:
                 Utils.link_three_elements(prev, new_atom, next)
 
-        return (score, None, 1 - 2 * num_reactions)
+        return (score, None)
+
+        
 
     def __str__(self):
         return "( + )"
@@ -126,7 +129,7 @@ class Minus(RingElement):
         res.set_prev(None)
         res.set_transform(True)
 
-        return (0, res, -1)
+        return (0, res)
 
     def __str__(self):
         return "( - )"
