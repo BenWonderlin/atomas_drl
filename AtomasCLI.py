@@ -1,4 +1,4 @@
-from AtomasRing import AtomasRing
+from objs.AtomasRing import AtomasRing
 
 class AtomasCLI:
     

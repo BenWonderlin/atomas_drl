@@ -1,7 +1,7 @@
 
 import random
-from RingElements import Atom, Plus, Minus, Root
-import ListUtils
+from objs.RingElements import Atom, Plus, Minus, Root
+import utils.ListUtils as ListUtils
 
 class AtomasRing:
 
