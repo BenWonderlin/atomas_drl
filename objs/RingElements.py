@@ -1,5 +1,5 @@
 import math
-import utils.ListUtils as ListUtils
+from utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
 
 class RingElement:
 
@@ -70,14 +70,14 @@ class Plus(RingElement):
         
         score, num_reactions = 0, 0
         center_value = 0
-        seen = {}
         prev, next = self.get_prev(), self.get_next()
         found_root, root = False, None
 
         while (True):
 
-
-            if type(prev) == Root:
+            if type(next) == Root and type(prev) == Root: # corner case
+                break
+            elif type(prev) == Root:
                 root = prev
                 prev = prev.get_prev()
                 found_root = -1 # -1 indicates that root was found while traversing backwards
@@ -87,7 +87,10 @@ class Plus(RingElement):
                 found_root = 1 # root was found while traversing forwards
             elif type(prev) != Atom or type(next) != Atom:
                 break
-            elif prev in seen or next in seen or prev == next: 
+            elif prev.get_next() == next: # seekers pass thru each other (full-ring reaction)
+                prev = root
+                next = root
+            elif prev == next: 
                 break
             elif prev.get_value() != next.get_value():
                 break
@@ -102,7 +105,9 @@ class Plus(RingElement):
                 score += math.floor(multiplier * (center_value + 1))
                 if next.get_value() >= center_value:
                     score += 2 * multiplier * (next.get_value() - center_value + 1) # apply bonus
-                center_value += (next.get_value() + 2 if next.get_value() > center_value else 1)
+                    center_value = next.get_value() + 2
+                else:
+                    center_value += 1
                 next, prev = next.get_next(), prev.get_prev()
             
 
@@ -110,11 +115,11 @@ class Plus(RingElement):
         if num_reactions:
             new_atom = Atom(center_value)
             if found_root == 1:
-                ListUtils.link_four_elements(prev, new_atom, root, next)
+                link_four_elements(prev, new_atom, root, next)
             elif found_root == -1:
-                ListUtils.link_four_elements(prev, root, new_atom, next)
+                link_four_elements(prev, root, new_atom, next)
             else:
-                ListUtils.link_three_elements(prev, new_atom, next)
+                link_three_elements(prev, new_atom, next)
 
         return (score, None)
 
@@ -131,15 +136,15 @@ class Minus(RingElement):
 
         if type(self.get_next()) == Root:
 
-            root = self.__next
-            ListUtils.link_two_elements(prev, root)
+            root = self.get_next()
+            link_two_elements(prev, root)
 
             prev = root
             res = root.get_next()
 
         # extract res from ring
         new_next = res.get_next()
-        ListUtils.link_two_elements(prev, new_next)
+        link_two_elements(prev, new_next)
         res.set_next(None)
         res.set_prev(None)
 

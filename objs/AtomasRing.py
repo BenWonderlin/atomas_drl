@@ -110,6 +110,14 @@ class AtomasRing:
             else:
                 return res
 
+    # adds the values of atoms in the ring to the score
+    def __update_final_score(self):
+        tmp = self.__root.get_next()
+        while tmp != self.__root:
+            if type(tmp) == Atom:
+                self.__score += tmp.get_value()
+            
+
 
     def take_turn(self, index):
 
@@ -155,6 +163,7 @@ class AtomasRing:
 
         # mark ring as unplayable if atom cap is reached
         if self.__atom_count >= self.__MAX_ATOM_COUNT:
+            self.__update_final_score()
             self.__is_playable = False
 
 
