@@ -1,7 +1,7 @@
 
 import random
 from objs.RingElements import Atom, Plus, Minus, Root
-import utils.ListUtils as ListUtils
+from utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
 
 class AtomasRing:
 
@@ -34,9 +34,9 @@ class AtomasRing:
         tmp_atom = self.__root
         for i in range(self.__INIT_ATOM_COUNT):
             new_atom = self.__generate_ring_element(include_specials = False)
-            ListUtils.link_two_elements(tmp_atom, new_atom)
+            link_two_elements(tmp_atom, new_atom)
             tmp_atom = new_atom
-        ListUtils.link_two_elements(tmp_atom, self.__root)
+        link_two_elements(tmp_atom, self.__root)
 
         self.__turns_since_plus, self.__turns_since_minus = 0, 0
         self.__is_playable = True
@@ -48,12 +48,12 @@ class AtomasRing:
 
             roll = random.random()
 
-            if self.__turns_since_plus == self.__MIN_PLUS_FREQUENCY - 1 or roll < self.__PLUS_PROBABILITY:
+            if self.__turns_since_plus >= self.__MIN_PLUS_FREQUENCY - 1 or roll < self.__PLUS_PROBABILITY:
                 self.__turns_since_plus = 0
                 self.__turns_since_minus += 1
                 return Plus()
 
-            if self.__turns_since_minus == self.__MIN_MINUS_FREQUENCY - 1 or roll < self.__PLUS_PROBABILITY + self.__MINUS_PROBABILITY:
+            if self.__turns_since_minus >= self.__MIN_MINUS_FREQUENCY - 1 or roll < self.__PLUS_PROBABILITY + self.__MINUS_PROBABILITY:
                 self.__turns_since_minus = 0
                 self.__turns_since_plus += 1
                 return Minus()
@@ -116,6 +116,7 @@ class AtomasRing:
         while tmp != self.__root:
             if type(tmp) == Atom:
                 self.__score += tmp.get_value()
+            tmp = tmp.get_next()
             
 
 
@@ -130,14 +131,14 @@ class AtomasRing:
 
         # handle transformation attempts
         if index == -1:
-            if self.__center_element.can_transform():
+            if self.__center_element.is_transformable():
                 self.__center_element = Plus()
             return
         
         # don't increment turn count if doing a minus pickup action
         if type(self.__center_element) != Minus:
             self.__turn_count += 1
-            if self.__turn_count == self.__RANGE_INCREASE_FREQUENCY:
+            if self.__turn_count % self.__RANGE_INCREASE_FREQUENCY == 0:
                 self.__min_atom += 1
 
         # insert elt into linked list
@@ -145,7 +146,7 @@ class AtomasRing:
         for i in range(index):
             tmp_elt = tmp_elt.get_next()
         new_next = tmp_elt.get_next()
-        ListUtils.link_three_elements(tmp_elt, self.__center_element, new_next)
+        link_three_elements(tmp_elt, self.__center_element, new_next)
 
         # proc it and update instance variables
         self.__center_element.set_transformable(False)
@@ -157,14 +158,16 @@ class AtomasRing:
         self.__score += self.__proc_plusses()
         self.__update_atom_count()
 
-        # get new center element if necessary
-        if not self.__center_element:
-            self.__center_element = self.__generate_ring_element()
-
         # mark ring as unplayable if atom cap is reached
         if self.__atom_count >= self.__MAX_ATOM_COUNT:
             self.__update_final_score()
             self.__is_playable = False
+            return
+
+        # get new center element if necessary
+        if not self.__center_element:
+            self.__center_element = self.__generate_ring_element()
+
 
 
     def get_game_state(self):

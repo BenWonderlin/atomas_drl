@@ -1,6 +1,7 @@
 
 import unittest
 
+from utils.ListUtils import init_element_chain, check_chain_completeness
 from objs.RingElements import Root, Atom, Plus, Minus 
 
 class TestRingElements(unittest.TestCase):
