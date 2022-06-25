@@ -50,6 +50,16 @@ class TestAtomasRing(unittest.TestCase):
             self.assertTrue( type(gen_atom) ==  Minus or type(gen_atom) == Plus )
     
 
+    def test_below_min_generation(self):
+        for _ in range(128):
+            my_ring = AtomasRing()
+            my_min_atom = random.randint(2, 100)
+            my_ring._AtomasRing__min_atom = my_min_atom
+            my_ring._AtomasRing__atom_count = 1
+            gen_atom = my_ring._AtomasRing__generate_ring_element(False)
+            self.assertTrue( gen_atom.get_value() < my_min_atom )
+
+
     def test_input_processing(self):
         my_ring = AtomasRing()
         self.assertRaises( ValueError, my_ring.take_turn, "lol" ) 

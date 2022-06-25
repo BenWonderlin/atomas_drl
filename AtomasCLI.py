@@ -16,11 +16,14 @@ class AtomasCLI:
             while(True):
                 try:
                     input_index = int(input_index)
+                    self.__ring.take_turn(input_index)
                     break
                 except ValueError:
-                    print("Please input an integer.")
-
-            self.__ring.take_turn(input_index)
+                    print("Please input an integer.\n> ", end = "")
+                    input_index = input()
+                except IndexError:
+                    print("Please input a valid index.\n> ", end = "")
+                    input_index = input()
 
         print(f"GAME OVER || FINAL SCORE: {self.__ring.get_score()}")
 

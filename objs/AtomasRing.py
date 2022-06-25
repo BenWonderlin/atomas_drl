@@ -61,7 +61,7 @@ class AtomasRing:
         if self.__min_atom > 1 and random.random() < 1/self.__atom_count:
             self.__turns_since_plus += 1
             self.__turns_since_minus += 1
-            return Atom(random.randint(1, self.__INIT_MIN_ATOM + 1))
+            return Atom(random.randint(1, self.__min_atom - 1))
 
         else:
             self.__turns_since_plus += 1
@@ -184,6 +184,10 @@ class AtomasRing:
 
     def get_atom_count(self):
         return self.__atom_count
+
+
+    def get_center_element(self):
+        return self.__center_element
 
     
     def __str__(self):
