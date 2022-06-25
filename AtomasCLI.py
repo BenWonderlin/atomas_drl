@@ -12,7 +12,7 @@ class AtomasCLI:
             print(self.__ring)
             print("Select a Move\n> ", end = "")
             
-            input_index = input()
+            input_index = input().strip()
             while(True):
                 try:
                     input_index = int(input_index)
@@ -20,10 +20,10 @@ class AtomasCLI:
                     break
                 except ValueError:
                     print("Please input an integer.\n> ", end = "")
-                    input_index = input()
+                    input_index = input().strip()
                 except IndexError:
                     print("Please input a valid index.\n> ", end = "")
-                    input_index = input()
+                    input_index = input().strip()
 
         print(f"GAME OVER || FINAL SCORE: {self.__ring.get_score()}")
 
