@@ -123,6 +123,11 @@ class Plus(RingElement):
 
         return (score, None)
 
+
+    def get_value(self):
+        return -1
+
+
     def __str__(self):
         return "( + )"
 
@@ -153,6 +158,9 @@ class Minus(RingElement):
 
         return (0, res)
 
+
+    def get_value(self):
+        return -2
 
     def __str__(self):
         return "( - )"

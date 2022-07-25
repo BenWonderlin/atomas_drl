@@ -1,5 +1,6 @@
 
 import random
+import tempfile
 from objs.RingElements import Atom, Plus, Minus, Root
 from utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
 
@@ -32,14 +33,14 @@ class AtomasRing:
 
         # generate and set up ring
         tmp_atom = self.__root
-        for i in range(self.__INIT_ATOM_COUNT):
+        for _ in range(self.__INIT_ATOM_COUNT):
             new_atom = self.__generate_ring_element(include_specials = False)
             link_two_elements(tmp_atom, new_atom)
             tmp_atom = new_atom
         link_two_elements(tmp_atom, self.__root)
 
         self.__turns_since_plus, self.__turns_since_minus = 0, 0
-        self.__is_playable = True
+        self.__is_terminal = False
 
 
     def __generate_ring_element(self, include_specials = True):
@@ -125,8 +126,8 @@ class AtomasRing:
         # delegate input parsing
         index = self.__parse_input(index)
 
-        # return immediately if ring is unplayable
-        if not self.__is_playable:
+        # return immediately if ring is terminal
+        if self.__is_terminal:
             return
 
         # handle transformation attempts
@@ -158,10 +159,10 @@ class AtomasRing:
         self.__score += self.__proc_plusses()
         self.__update_atom_count()
 
-        # mark ring as unplayable if atom cap is reached
+        # mark ring as terminal if atom cap is reached
         if self.__atom_count >= self.__MAX_ATOM_COUNT:
             self.__update_final_score()
-            self.__is_playable = False
+            self.__is_terminal = True
             return
 
         # get new center element if necessary
@@ -169,9 +170,8 @@ class AtomasRing:
             self.__center_element = self.__generate_ring_element()
 
 
-
-    def get_game_state(self):
-        return self.__is_playable
+    def get_terminal(self):
+        return self.__is_terminal
 
 
     def get_score(self):
@@ -189,7 +189,57 @@ class AtomasRing:
     def get_center_element(self):
         return self.__center_element
 
+
+    # matrix with dims 19 by 20; each row represents an edge, and each column represents an element (including the center element)
+    def get_state(self):
+        
+        # get elements of ring into flat array
+        ring_lst = []
+        tmp_elt = self.__root.get_next()
+        while type(tmp_elt) != Root:
+            ring_lst.append(tmp_elt.get_value())
+            tmp_elt = tmp_elt.get_next()
+
+        # concatenate row to itself for easy rotation
+        ring_lst += ring_lst
+        
+        # build segments array by fetching slices of ring list
+        segments = []
+        for i in range(self.get_atom_count()):
+            segments.append(ring_lst[i : i + self.get_atom_count()])
+        num_segments = len(segments)
+
+        # reorder segments so that its indices match the action indices
+        segments = segments[num_segments // 2:] + segments[:num_segments // 2]
+
+        print(num_segments)
+
+        # build zero-padding for the ring
+        front_length = int((self.__MAX_ATOM_COUNT / 2) + 0.5) - int((num_segments / 2) + 0.5)
+        back_length = (self.__MAX_ATOM_COUNT // 2) - (num_segments // 2)
+        front_pad, back_pad = [0] * front_length, [0] * back_length
+
+        print(front_length, back_length)
+        # assemble result list
+        res = []
+        for elt in segments:
+            new_row = front_pad.copy() + elt + back_pad.copy()
+            new_row.append(self.get_center_element().get_value())
+            res.append(new_row)
+
+        # pad result list with zero-rows until we hit 19 rows
+        zero_row = [0] * (self.__MAX_ATOM_COUNT + 1)
+        zero_row[-1] = self.get_center_element().get_value()
+        while len(res) < self.__MAX_ATOM_COUNT:
+            res.append(zero_row.copy())
+
+        print(len(res), len(res[0]))
+        print(res)
+
+
+
     
+
     def __str__(self):
         res = f"\t\t\t\tCenter Element: {self.__center_element}\n\n"
         tmp = self.__root.get_next()

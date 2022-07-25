@@ -7,7 +7,7 @@ class AtomasCLI:
 
     def activate(self):
 
-        while(self.__ring.get_game_state()):
+        while(self.__ring.get_terminal() == False):
             print(f"\t    Turns Taken: {self.__ring.get_turn_count()}     ||     Score: {int(self.__ring.get_score())}     ||     Atom Count: {self.__ring.get_atom_count()}\n")
             print(self.__ring)
             print("Select a Move\n> ", end = "")
@@ -30,3 +30,4 @@ if __name__ == "__main__":
 
     cli = AtomasCLI()
     cli.activate()
+    
