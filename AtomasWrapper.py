@@ -8,9 +8,9 @@ from objs.AtomasRing import AtomasRing
 class AtomasWrapper:
     
 
-    __TRANSFORM_IDX = 18
-    __NUM_ACTIONS = 19
     __INACTION_REWARD = -1
+    __TERMINAL_REWARD = -10
+    __NUM_ACTIONS = 18
 
 
     def __init__(self):
@@ -23,34 +23,34 @@ class AtomasWrapper:
 
     def step(self, action_vec):
 
-        # action vec is a 19 x 1 one-hot encoded vector
-        # where the first 18 indices correspond to the ring's edge indices
-        # and the last corresponds to tapping the center (i.e., a transform attempt)
+        # action vec is a 18 x 1 one-hot encoded vector
+        # where the 18 indices correspond to the ring's edge indices
 
         action_idx = tf.argmax(action_vec)
 
-        if action_idx < 0 or (action_idx >= self.__ring.get_atom_count() and action_idx != self.__TRANSFORM_IDX): # self.__ring.get_terminal() or
+        if action_idx < 0 or (action_idx >= self.__ring.get_atom_count() and (self.__ring.get_atom_count() != 0 or action_idx != 0)):
+            # if self.__ring.get_atom_count() <= 1: 
+            #     print(f"Invalid action: {action_idx} on ring size {self.__ring.get_atom_count()}")
+            #     print(self.__ring)
             return ( self.__ring.get_state(), self.__INACTION_REWARD, False )
-
-        if action_idx == self.__TRANSFORM_IDX:
-            action_idx = -1
 
         prev_score = self.__ring.get_score()
         self.__ring.take_turn(action_idx)
 
         new_state = self.__ring.get_state()
-        reward = self.__ring.get_score() - prev_score
         terminal = self.__ring.get_terminal()
+        reward = self.__TERMINAL_REWARD if terminal else self.__ring.get_score() - prev_score
 
         return ( new_state, reward, terminal )
 
 
     def activate(self):
-
-        model = keras.models.load_model("first_model")
-        current_state, _, _ = self.check()
+        
+        model = keras.models.load_model("third_model")
 
         while(not self.__ring.get_terminal()):
+
+            current_state, _, _ = self.check()
 
             print(f"\n\t    Turns Taken: {self.__ring.get_turn_count()}     ||     Score: {int(self.__ring.get_score())}     ||     Atom Count: {self.__ring.get_atom_count()}\n")
             print(self.__ring)
@@ -65,15 +65,15 @@ class AtomasWrapper:
             action_vec[action_idx] = 1
 
             prev_state, _, _ = self.check()
-            next_state, reward, _ = self.step(action_vec)
+            next_state, first_reward, _ = self.step(action_vec)
 
             if prev_state == next_state:
                 action_vec = np.zeros(self.__NUM_ACTIONS)
                 action_vec[0] = 1
-                _, reward, _ = self.step(action_vec)
-                print(f"{action_idx}->0, Reward: {reward}")
+                _, second_reward, _ = self.step(action_vec)
+                print(f"{action_idx}->0, Reward: {first_reward}->{second_reward}")
             else:
-                print(f"{action_idx}, Reward: {reward}")
+                print(f"{action_idx}, Reward: {first_reward}")
    
 
         print(f"\nGAME OVER || FINAL SCORE: {self.__ring.get_score()}")

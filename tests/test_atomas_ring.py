@@ -1,6 +1,5 @@
 import unittest
 import random
-from copy import copy
 
 from objs.AtomasRing import AtomasRing
 from objs.RingElements import Root, Atom, Plus, Minus
