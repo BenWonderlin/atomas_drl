@@ -10,19 +10,18 @@ class Game(Base):
     __tablename__ = "games"
 
     id = Column(Integer, primary_key = True, index = True)
-
     object = Column(LargeBinary)
-    score = Column(Integer)
-    player_name = Column(String)
+    score = Column(Integer, default = 0)
+    player_name = Column(String, default = None)
 
-    center_element = Column(String)
-    ring_elements = Column(String)
-    turns_taken = Column(Integer)
+    center_element = Column(Integer, default = 0)
+    ring_elements = Column(String, default = None)
+    turns_taken = Column(Integer, default = 0)
 
-    active_flag = Column(Boolean)
-    assisted_flag = Column(Boolean)
+    terminal = Column(Boolean, default = False)
+    ai_assisted = Column(Boolean, default = False)
 
-    created_at = Column(DateTime(timezone = True), server_default = func.now())
-    updated_at = Column(DateTime(timezone = True), onupdate = func.now())
+    created_at = Column(DateTime(timezone = True), default = func.now())
+    updated_at = Column(DateTime(timezone = True), default = func.now(), onupdate = func.now())
 
 

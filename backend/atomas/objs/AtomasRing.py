@@ -1,8 +1,7 @@
 
 import random
-import tempfile
-from objs.RingElements import Atom, Plus, Minus, Root
-from utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
+from .RingElements import Atom, Plus, Minus, Root
+from ..utils.ListUtils import link_two_elements, link_three_elements
 
 class AtomasRing:
 
@@ -252,6 +251,14 @@ class AtomasRing:
         res.append(self.get_atom_count())
         return res
 
+
+    def get_ring_str(self):
+        res = ""
+        tmp_elt = self.__root.get_next()
+        while type(tmp_elt) != Root:
+            res += str(tmp_elt.get_value()) + ","
+            tmp_elt = tmp_elt.get_next()
+        return res
 
     def __str__(self):
         res = f"\t\t\t\tCenter Element: {self.__center_element}\n\n"

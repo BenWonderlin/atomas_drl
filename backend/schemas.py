@@ -1,4 +1,4 @@
-
+from typing import List, Union
 from datetime import datetime
 from pydantic import BaseModel
 
@@ -10,23 +10,19 @@ class Game(GameBase):
 
     id: int
     score: int
-    player_name: str
+    player_name: Union[str, None]
 
-    center_element: str
-    ring_elements: str
+    center_element: Union[int, None]
+    ring_elements: Union[str, None]
     turns_taken: int
 
-    active_flag: bool
-    assisted_flag: bool
+    terminal: bool
+    ai_assisted: bool
 
-    created_at: datetime
-    updated_at: datetime
+    created_at: Union[datetime, None]
+    updated_at: Union[datetime, None]
 
     class Config:
         orm_mode = True
 
 
-class Action(BaseModel):
-    action_num: int
-    class Config:
-        orm_mode = True

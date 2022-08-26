@@ -1,5 +1,5 @@
 import math
-from utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
+from ..utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
 
 class RingElement:
 
