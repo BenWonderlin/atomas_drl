@@ -1,17 +1,29 @@
 import {
-  BroswerRouter as Router,
+  BrowserRouter as Router,
+  Routes,
   Route,
 } from "react-router-dom";
 
+
 import './App.css';
+import Header from "./components/Header";
+import HomePage from  "./pages/HomePage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import GamePage from "./pages/GamePage";
 
 function App() {
+
   return (
     <Router>
-      <div className="App">
-        MY APP
-        <Route></Route>
-        <Route></Route>
+      <div className = "container dark">
+        <div className = "app">
+          <Header />
+          <Routes>
+            <Route path = "/" element = {<HomePage/>} />
+            <Route path = "/leaderboard" element = {<LeaderboardPage/>} />
+            <Route path = "/game/:id" element = {<GamePage/>} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
