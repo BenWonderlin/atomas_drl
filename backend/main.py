@@ -41,7 +41,7 @@ app.add_middleware(
 
 
 
-@app.get("/leaderboard/", response_model = List[schemas.Game])
+@app.get("/leaderboard", response_model = List[schemas.Game])
 async def read_leaderboard(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     res = db.query(models.Game)\
         .filter(models.Game.terminal == True)\
@@ -49,7 +49,6 @@ async def read_leaderboard(skip: int = 0, limit: int = 100, db: Session = Depend
         .offset(skip)\
         .limit(100)\
         .all()
-    print(res)
     return res
 
 
@@ -61,7 +60,7 @@ async def read_game(game_id : int, db: Session = Depends(get_db)):
     return db_game
 
 
-@app.get("/new_game/", response_model = schemas.Game)
+@app.get("/new_game", response_model = schemas.Game)
 async def create_game(db: Session = Depends(get_db)):
 
     ring = AtomasRing()

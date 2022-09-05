@@ -8,9 +8,9 @@ const HomePage = () => {
     let navigate = useNavigate();
 
     let getNewGame = async () => {
-        let response = await fetch("/new_game/")
+        let response = await fetch("/new_game")
         let data = await response.json()
-        navigate(`/game/${data.id}`)
+        navigate(`/games/${data.id}`)
     }
 
     return (
@@ -20,7 +20,7 @@ const HomePage = () => {
                     New Game
                 </h4>
             </div>
-            <Link to= "/leaderboard/">
+            <Link to= "/leaderboard">
                 <div className = "home-button">
                     <h4>
                         Global Leaderboard

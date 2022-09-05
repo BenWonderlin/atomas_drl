@@ -15,13 +15,13 @@ function App() {
 
   return (
     <Router>
-      <div className = "container dark">
+      <div className = "container">
         <div className = "app">
           <Header />
           <Routes>
             <Route path = "/" element = {<HomePage/>} />
             <Route path = "/leaderboard" element = {<LeaderboardPage/>} />
-            <Route path = "/game/:id" element = {<GamePage/>} />
+            <Route path = "/games/:id" element = {<GamePage/>} />
           </Routes>
         </div>
       </div>
