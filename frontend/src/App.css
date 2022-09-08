@@ -4,6 +4,7 @@
 
 :root {
   --color-main: #dc4a4a;
+  --color-main-light: #E06161;
   --color-text: #d6d1d1;
   --color-white: #f5f6f7;
   --color-gray: #999;
@@ -232,7 +233,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-main);
+  color: var(--color-text);
   padding: 16px;
   font-size: 20px;
 }
@@ -259,23 +260,12 @@ a {
   background-color: rgb(0, 0, 0, 0);
   border: 2px solid;
   border-color: var(--color-gray);
+
 }
 
 .ring-element-container{
   position: absolute;
   text-align: center;
-}
-.ring-element-label {
-  color: var(--color-white);
-}
-.ring-element-value {
-
-  position: absolute;
-  transform: translate(-50%, -15%);
-
-  color: var(--color-gray);
-  font-size: 14px;
-
 }
 
 .center-element-container {
@@ -283,10 +273,11 @@ a {
   text-align: center;
   transform: translate(-50%, 50%)
 }
-.center-element-label {
+
+.element-label {
   color: var(--color-white);
 }
-.center-element-value {
+.element-value {
   
   position: absolute;
   transform: translate(-50%, -15%);
@@ -294,4 +285,14 @@ a {
   color: var(--color-gray);
   font-size: 14px;
 
+}
+
+.ring-button {
+    position: absolute;
+    background-color: var(--color-main-light);
+}
+
+.ring-button:hover{
+    background-color: var(--color-gray);
+    cursor: pointer;
 }

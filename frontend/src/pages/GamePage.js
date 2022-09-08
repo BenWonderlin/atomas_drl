@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+
 import RingElement from '../components/RingElement'
 import CenterElement from '../components/CenterElement'
+import RingButton from '../components/RingButton'
 
 const GamePage = () => {
 
 
     const valueToNameArr = [
-        "\u269B",
+        "",
         "H","He","Li","Be","B","C","N","O","F","Ne",
         "Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca",
         "Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn",
@@ -39,9 +41,18 @@ const GamePage = () => {
         setGame(data);
     }
 
+    const putGameAction = async (action) => {
+        const putRequestOption = {
+            method: 'PUT',
+        };
+        const response = await fetch(`/games/${id}?action=${action}`,  putRequestOption);
+        const data = await response.json()
+        setGame(data);
+    }
+
     useEffect(() =>{
         getGame()
-    }, []);
+    }, [id]);
 
 
     return (
@@ -67,14 +78,24 @@ const GamePage = () => {
                         />
                     ))
                 }
-                {
-                    <CenterElement
-                        key = {0}
-                        value = {game?.center_element}
-                        nameArr = {valueToNameArr}
-                        colorArr = {valueToColorArr}
-                    />
+
+                {   !game?.terminal &&
+                    game?.ring_elements.split(',').filter(element => element).map((value, index) => (
+                        <RingButton
+                            key = {index}
+                            idx = {index}
+                            size = {game?.ring_elements.split(',').filter(element => element).length}
+                            callback = {putGameAction}
+                        />
+                    ))
                 }
+
+                <CenterElement
+                    key = {0}
+                    value = {game?.center_element}
+                    nameArr = {valueToNameArr}
+                    colorArr = {valueToColorArr}
+                />
 
             </div>
         </div>

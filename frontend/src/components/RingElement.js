@@ -1,8 +1,7 @@
 import React from 'react'
 
 const RingElement = ({idx, value, size, nameArr, colorArr}) => {
-
-    // Helpers for rendering
+    
     const ringRadius = 160;
     const elementRadius = 20;
 
@@ -26,11 +25,11 @@ const RingElement = ({idx, value, size, nameArr, colorArr}) => {
             }}
         >
 
-            <div className = "ring-element-label">
+            <div className = "element-label">
                 {nameArr.at(value) || defaultName}
             </div>
 
-            <div className = "ring-element-value"
+            <div className = "element-value"
                 style = {{
                     
                     top: elementRadius, 

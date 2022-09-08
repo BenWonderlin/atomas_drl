@@ -20,11 +20,11 @@ const CenterElement = ({value, nameArr, colorArr}) => {
 
             }}>
 
-            <div className = "center-element-label">
+            <div className = "element-label">
                 {nameArr.at(value) || defaultName}
             </div>
 
-            <div className = "ring-element-value"
+            <div className = "element-value"
                 style = {{
 
                     top: elementRadius, 
