@@ -154,7 +154,7 @@ a {
   align-items: center;
   justify-content: center;
 
-  height: 48px;
+  height: 36px;
   margin: 5% 20% 5% 20%;
   border-radius: 24px;
 
@@ -177,65 +177,86 @@ a {
 /* Leaderboard Styles */
 
 .leaderboard-header {
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
+  justify-content: center;
+  padding: 16px 96px 16px 96px;
+
+  color: var(--color-main-light);
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+
 }
 
-.leaderboard-title,
-.leaderboard-count {
-  color: var(--color-main);
-  font-size: 24px;
-  font-weight: 600;
-}
 
 .leaderboard-count {
+
   font-size: 18px;
   color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
+
 }
 
 
 .leaderboard-list {
   padding: 0;
-  margin: 16px 0;
+  margin: 0px;
   height: 70vh;
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: 100px;
 }
 
 .leaderboard-list::-webkit-scrollbar {
-  display: none;
+  display: flex;
+}
+.leaderboard-label {
+  display:flex;
 }
 
-.leaderboard-list-item {
+.leaderboard-item {
+
+  display: flex;
+  justify-content: space-around;
+
   border-bottom: 1px solid  var(--color-border);
-  margin-bottom: 12px;
-  padding: 8px 16px;
+  padding: 8px 48px 8px 48px;
   transition: all 0.2s ease-in-out;
+
 }
 
-.leaderboard-list-item:hover {
+.leaderboard-item:hover {
   background-color: var(--color-bg);
   cursor: pointer;
 }
 
-.leaderboard-list-item h3,
-.leaderboard-list-item p span {
-  font-weight: 600;
+.leaderboard-item-rank {
+  color: var(--color-main-light);
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  width: 10%;
 }
 
-
-.leaderboard-list-item p span {
-  color: var(--color-gray);
-  display: inline-block;
-  margin-right: 8px;
+.leaderboard-item-stat-bold {
+  color: var(--color-text);
+  font-size: 24px;
+  font-weight: bold;
+  text-align: right;
+  width: 15%
 }
 
-.leaderboard-list-item p {
+.leaderboard-item-stat {
+  color: var(--color-text);
   font-size: 14px;
-  color: var(--color-light);
+  text-align: center;
+  width: 15%;
 }
+
+
+
 
 
 

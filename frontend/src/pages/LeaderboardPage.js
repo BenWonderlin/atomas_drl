@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { AiFillTrophy } from "react-icons/ai"
 import LeaderboardItem from '../components/LeaderboardItem'
 
 const LeaderboardPage = () => {
@@ -20,14 +21,22 @@ const LeaderboardPage = () => {
         <div className = "leaderboard">
 
             <div className = "leaderboard-header">
-                <h2 className = "leaderboard-title">{'\u272D'}  Global Leaderboard</h2>
-                <p className = "leaderboard-count"> (Top 50)</p>
+                <AiFillTrophy/>&nbsp;&nbsp;Global Leaderboard&nbsp;&nbsp;<AiFillTrophy/>
+            </div>
+
+            <div className = "leaderboard-label">
+
             </div>
 
             <div className = "leaderboard-list">
+            
                 {
                     leaderboard.map((game, index) => (
-                        <LeaderboardItem key = {index} game = {game} />
+                        <LeaderboardItem 
+                            key = {index}
+                            idx = {index} 
+                            game = {game}
+                        />
                     ))
                 }
             </div>

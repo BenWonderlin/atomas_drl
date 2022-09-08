@@ -1,12 +1,39 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
-const LeaderboardItem = ({game}) => {
+const LeaderboardItem = ({game, idx}) => {
   return (
-      <div className = "leaderboard-list-item">
-        <h3>
-          {game.player_name} : {game.score}
-        </h3>
-      </div>
+      <Link to = {`/games/${game.id}`}>
+
+        <div className = "leaderboard-item">
+
+          <div className = "leaderboard-item-rank">
+            #{idx+1}
+          </div> 
+
+          <div className = "leaderboard-item-stat-bold">
+            {game.player_name}
+          </div>
+
+          <div className = "leaderboard-item-stat-bold">
+           {game.score}
+          </div>
+
+          <div className = "leaderboard-item-stat">
+            {game.turns_taken}
+          </div>
+
+          {/* <div className = "leaderboard-item-stat">
+            {game.ai_assisted ? "Yes" : "No"}
+          </div> */}
+
+          <div className = "leaderboard-item-stat">
+            {game.updated_at.substring(0, 10)}
+          </div>
+
+
+        </div>
+      </Link>
     )
   }
 
