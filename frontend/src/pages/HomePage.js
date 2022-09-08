@@ -16,15 +16,11 @@ const HomePage = () => {
     return (
         <div className = "home">
             <div className = "home-button" onClick = {() => getNewGame()}>
-                <h4>
-                    New Game
-                </h4>
+                New Game
             </div>
             <Link to= "/leaderboard">
                 <div className = "home-button">
-                    <h4>
-                        Global Leaderboard
-                    </h4>
+                    Global Leaderboard
                 </div>
             </Link>
         </div>

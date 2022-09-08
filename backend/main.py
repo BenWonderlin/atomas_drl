@@ -44,6 +44,7 @@ app.add_middleware(
 @app.get("/leaderboard", response_model = List[schemas.Game])
 async def read_leaderboard(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     res = db.query(models.Game)\
+        .filter(models.Game.player_name.is_not(None))\
         .filter(models.Game.terminal == True)\
         .order_by(models.Game.score.desc())\
         .offset(skip)\

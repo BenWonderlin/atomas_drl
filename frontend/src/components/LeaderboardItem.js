@@ -4,7 +4,7 @@ const LeaderboardItem = ({game}) => {
   return (
       <div className = "leaderboard-list-item">
         <h3>
-          {game.score}
+          {game.player_name} : {game.score}
         </h3>
       </div>
     )

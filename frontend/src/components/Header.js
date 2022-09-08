@@ -24,29 +24,23 @@ const Header = () => {
   return (
     <div className = "app-header">
 
-      <div>
-        <h3>
-          <Link to = "/">
-            <BsFillHouseFill/>
-          </Link>
-        </h3>
-      </div>
+      <h3>
+        <Link to = "/">
+          <BsFillHouseFill/>
+        </Link>
+      </h3>
 
       <div>
+        <h1>
+          Deep Atomas
+        </h1>
+      </div>
+
+      <h3 onClick = {openModal}>
         <div>
-          <h1>
-            Deep Atomas
-          </h1>
+          <BsInfoCircleFill/>
         </div>
-      </div>
-
-      <div onClick = {openModal}>
-        <h3>
-          <div>
-            <BsInfoCircleFill/>
-          </div>
-        </h3>
-      </div>
+      </h3>
 
       <Modal
           isOpen = {modalIsOpen}

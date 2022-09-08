@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
 import RingElement from '../components/RingElement'
 import CenterElement from '../components/CenterElement'
 import RingButton from '../components/RingButton'
+
+import { GoArrowRight } from "react-icons/go";
 
 const GamePage = () => {
 
@@ -34,12 +37,20 @@ const GamePage = () => {
 
     const { id } = useParams();
     const [game, setGame] = useState(null);
+    var nameInput = "NAN";
 
     const getGame = async () => {
         const response = await fetch(`/games/${id}`);
         const data = await response.json();
         setGame(data);
     }
+
+    useEffect(() =>{
+        getGame()
+    }, [id]);
+
+
+
 
     const putGameAction = async (action) => {
         const putRequestOption = {
@@ -50,19 +61,40 @@ const GamePage = () => {
         setGame(data);
     }
 
-    useEffect(() =>{
-        getGame()
-    }, [id]);
+    const putGameName = async (name) => {
+        const putRequestOption = {
+            method: 'PUT',
+        };
+        const response = await fetch(`/games/${id}?action=0&name=${nameInput}`,  putRequestOption);
+        const data = await response.json();
+        setGame(data);
+    }
+
+
+
+    const handleNameInput = (e) => {
+        e.target.value = ("" + e.target.value).toUpperCase()
+        nameInput = e.target.value
+    }
+
 
 
     return (
         <div className = "game">
 
             <div className = "game-header">
-                Score: {game?.score} | Turns Taken: {game?.turns_taken}
+
+                <div className = "game-stats">
+                    Score:&nbsp;<span className = "game-stats-highlighted">{game?.score}</span>
+                </div>
+
+                <div className = "game-stats">
+                    Turns Taken: {game?.turns_taken}
+                </div>
+
             </div>
 
-            <div className = "game-ring-elements">
+            <div className = "game-body">
 
                 <div className = "game-ring-border"/>
 
@@ -79,7 +111,8 @@ const GamePage = () => {
                     ))
                 }
 
-                {   !game?.terminal &&
+                {  
+                    !game?.terminal &&
                     game?.ring_elements.split(',').filter(element => element).map((value, index) => (
                         <RingButton
                             key = {index}
@@ -98,6 +131,39 @@ const GamePage = () => {
                 />
 
             </div>
+
+            
+            {/* displayed only when game is over and name is not already set*/}
+            {
+                game?.terminal && !game?.player_name &&
+                <div className = "game-footer">
+
+                    <div className = "game-stats">
+                        <span className = "game-stats-highlighted">
+                            Game Over!
+                        </span>
+                    </div>
+
+                    <div className = "game-stats">
+                        Add your name to the leaderboard:&nbsp;&nbsp;&nbsp;
+                        <input 
+                            className = "game-name-input" 
+                            type = "text" 
+                            maxLength = "3"
+                            onInput = {(e) => handleNameInput(e)}
+                        />
+                        <Link to = "/leaderboard">
+                            <div className = "game-submit-name-button"
+                                onClick = {() => putGameName()}
+                            >
+                                <GoArrowRight/>
+                            </div>
+                        </Link>
+                    </div>
+
+                </div>
+            }
+
         </div>
   )
 }
