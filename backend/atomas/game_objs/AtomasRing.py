@@ -1,7 +1,6 @@
 
 import random
-from .RingElements import Atom, Plus, Minus, Root
-from ..utils.ListUtils import link_two_elements, link_three_elements
+from .RingElements import Atom, Plus, Minus, Root, link_two_elements, link_three_elements
 
 class AtomasRing:
 
@@ -53,7 +52,7 @@ class AtomasRing:
                 self.__turns_since_minus += 1
                 return Plus()
 
-            if self.__turns_since_minus >= self.__MIN_MINUS_FREQUENCY - 1 or roll < self.__PLUS_PROBABILITY + self.__MINUS_PROBABILITY:
+            if (self.__turns_since_minus >= self.__MIN_MINUS_FREQUENCY - 1 or roll < self.__PLUS_PROBABILITY + self.__MINUS_PROBABILITY) and self.__atom_count > 1:
                 self.__turns_since_minus = 0
                 self.__turns_since_plus += 1
                 return Minus()
@@ -75,7 +74,7 @@ class AtomasRing:
         except ValueError:
             raise ValueError("input index cannot be converted to int")
         if index < -1 or index > self.__atom_count:
-            raise IndexError("input index out of range")
+            raise IndexError(f"input index out of range: {index} (length: {self.__atom_count})")
         return index
 
 
@@ -187,6 +186,7 @@ class AtomasRing:
 
     def get_center_element(self):
         return self.__center_element
+
 
     def get_state(self):
         res = []

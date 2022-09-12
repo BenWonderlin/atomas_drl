@@ -1,5 +1,25 @@
 import math
-from ..utils.ListUtils import link_two_elements, link_three_elements, link_four_elements
+
+# Linked list helper functions
+
+def link_two_elements(one, two):
+    one.set_next(two)
+    two.set_prev(one)
+
+def link_three_elements(one, two, three):
+    one.set_next(two)
+    two.set_prev(one)
+    two.set_next(three)
+    three.set_prev(two)
+
+def link_four_elements(one, two, three, four):
+    one.set_next(two)
+    two.set_prev(one)
+    two.set_next(three)
+    three.set_prev(two)
+    three.set_next(four)
+    four.set_prev(three)
+
 
 class RingElement:
 
@@ -114,7 +134,9 @@ class Plus(RingElement):
         # add resulting element to ring and handle root node
         if num_reactions:
             new_atom = Atom(center_value)
-            if found_root == 1:
+            if prev == root and next == root:
+                link_three_elements(root, new_atom, root)
+            elif found_root == 1:
                 link_four_elements(prev, new_atom, root, next)
             elif found_root == -1:
                 link_four_elements(prev, root, new_atom, next)

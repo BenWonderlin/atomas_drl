@@ -1,4 +1,4 @@
-from objs.AtomasRing import AtomasRing
+from game_objs.AtomasRing import AtomasRing
 
 class AtomasCLI:
     

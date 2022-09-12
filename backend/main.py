@@ -5,8 +5,8 @@ from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-from atomas.objs.AtomasRing import AtomasRing
-from atomas.objs.RingElements import RingElement, Plus, Minus, Root
+from atomas.game_objs.AtomasRing import AtomasRing
+from atomas.game_objs.RingElements import RingElement, Plus, Minus, Root
 
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
