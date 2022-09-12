@@ -105,12 +105,12 @@ async def update_game(game_id : int, action : int, name = None, db: Session = De
 
     if action == -1:
 
-        current_state, num_legal_actions, _, _ = ring.check()
+        current_state, num_legal_actions = ring.get_state(), ring.get_atom_count()
         model = keras.models.load_model("dqn_model")
 
         current_state_tensor = tf.expand_dims(tf.convert_to_tensor(current_state), 0)
         q_values = model(current_state_tensor, training = False)
-        
+
         action = tf.argmax(q_values[0][:num_legal_actions]).numpy()
 
     try:
