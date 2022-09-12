@@ -56,7 +56,7 @@ a {
 .app {
   width: 100%;
   max-width: 720px;
-  min-height: 640px;
+  min-height: 560px;
   height: 88vh;
   margin: 0 auto;
   background-color: var(--color-darker);
@@ -80,7 +80,7 @@ a {
 }
 
 .app-header h1 {
-  font-size: 36px;
+  font-size: 28px;
   color: var(--color-text);
   font-weight: 800;
   text-align: center;
@@ -89,7 +89,7 @@ a {
 .app-header h3 {
   display: flex;
   align-items: center;
-  font-size: 32px;
+  font-size: 28px;
   cursor: pointer;
 }
 
@@ -101,7 +101,7 @@ a {
 
   width: 80%;
   max-width: 576px;
-  height: 88vh;
+  height: 80%;
   margin: 32px auto auto auto;
   border-radius: 25px;
 
@@ -154,11 +154,11 @@ a {
   align-items: center;
   justify-content: center;
 
-  height: 36px;
-  margin: 5% 20% 5% 20%;
+  height: 42px;
+  margin: 5% 10% 5% 10%;
   border-radius: 24px;
 
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   font-weight: bold;
 
@@ -184,7 +184,7 @@ a {
   padding: 16px 96px 16px 96px;
 
   color: var(--color-main-light);
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
 
@@ -222,7 +222,7 @@ a {
   justify-content: space-around;
 
   border-bottom: 1px solid  var(--color-border);
-  padding: 8px 48px 8px 48px;
+  padding: 8px 36px 8px 36px;
   transition: all 0.2s ease-in-out;
 
 }

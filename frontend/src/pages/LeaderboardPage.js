@@ -21,7 +21,7 @@ const LeaderboardPage = () => {
         <div className = "leaderboard">
 
             <div className = "leaderboard-header">
-                <AiFillTrophy/>&nbsp;&nbsp;Global Leaderboard&nbsp;&nbsp;<AiFillTrophy/>
+                Global Leaderboard
             </div>
 
             <div className = "leaderboard-label">
