@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import HomePage from  "./pages/HomePage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import GamePage from "./pages/GamePage";
+import InfoPage from "./pages/InfoPage";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
             <Route path = "/" element = {<HomePage/>} />
             <Route path = "/leaderboard" element = {<LeaderboardPage/>} />
             <Route path = "/games/:id" element = {<GamePage/>} />
+            <Route path = "/info" element = {<InfoPage/>} />
           </Routes>
         </div>
       </div>

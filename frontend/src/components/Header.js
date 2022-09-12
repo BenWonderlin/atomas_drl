@@ -36,18 +36,19 @@ const Header = () => {
         </h1>
       </div>
 
-      <h3 onClick = {openModal}>
-        <div>
+      <h3>
+        <Link to = "/info">
           <BsInfoCircleFill/>
-        </div>
+        </Link>
       </h3>
 
-      <Modal
+      {/* <Modal
           isOpen = {modalIsOpen}
           onAfterOpen = {afterOpenModal}
           onRequestClose = {closeModal}
           className = {"info-modal"}
       >
+
         <div className = "info-modal-body">
 
           <h2>
@@ -85,9 +86,10 @@ const Header = () => {
 
         </div>
 
-      </Modal>
-
+      </Modal> */}
+    
     </div>
+
   )
 }
 
