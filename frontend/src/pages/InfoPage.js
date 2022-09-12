@@ -4,13 +4,13 @@ const InfoPage = () => {
   return (
     <div className = "info">
 
-          <h2>
+          <h1>
             Welcome to Deep Atomas!
-          </h2>
+          </h1>
 
-          <div className = "info-subtitle">
+          <h2>
             An AI-assisted implementation of the mobile game Atomas
-          </div>
+          </h2>
 
           <div className = "info-entry">
             <h3>

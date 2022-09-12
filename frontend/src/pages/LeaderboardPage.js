@@ -24,8 +24,8 @@ const LeaderboardPage = () => {
                 Global Leaderboard
             </div>
 
-            <div className = "leaderboard-label">
-
+            <div className = "leaderboard-subtitle">
+                Resets every 24 hours
             </div>
 
             <div className = "leaderboard-list">
