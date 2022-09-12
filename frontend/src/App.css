@@ -128,13 +128,13 @@ a {
 
 .info-modal-body h2{
   color: var(--color-text);
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
 }
 
 .info-modal-entry h3{
   color: var(--color-main);
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
 }
 
@@ -263,19 +263,18 @@ a {
 /* Game Styles */
 
 .game-header {
-  padding: 32px;
+  padding: 16px;
 }
 .game-stats {
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-text);
-  font-size: 24px;
-  padding: 8px;
+  font-size: 20px;
 }
 .game-stats-highlighted {
   color: var(--color-main);
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
 }
 
@@ -292,10 +291,10 @@ a {
 .game-ring-border {
 
   position: absolute;
-  margin: -160px 0px 0px -200px;
-  width: 400px;
-  height: 400px;
-  border-radius: 200px;
+  margin: -128px 0px 0px -160px;
+  width: 320px;
+  height: 320px;
+  border-radius: 160px;
 
   color: var(--color-main);
   background-color: rgb(0, 0, 0, 0);
@@ -317,6 +316,7 @@ a {
 
 .element-label {
   color: var(--color-white);
+  font-size: 14px;
 }
 .element-value {
   
@@ -324,7 +324,7 @@ a {
   transform: translate(-50%, -15%);
 
   color: var(--color-gray);
-  font-size: 14px;
+  font-size: 12px;
 
 }
 
@@ -339,7 +339,7 @@ a {
 }
 
 .game-footer{
-  margin-top: 480px;
+  margin-top: 450px;
 }
 
 .game-name-input{
@@ -355,12 +355,12 @@ a {
 
 .game-submit-name-button {
 
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   margin: 8px;
   justify-content: center;
   
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
   color: var(--color-main);

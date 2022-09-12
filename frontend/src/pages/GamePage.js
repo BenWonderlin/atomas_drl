@@ -85,11 +85,7 @@ const GamePage = () => {
             <div className = "game-header">
 
                 <div className = "game-stats">
-                    Score:&nbsp;<span className = "game-stats-highlighted">{game?.score}</span>
-                </div>
-
-                <div className = "game-stats">
-                    Turns Taken: {game?.turns_taken}
+                    Score:&nbsp;<span className = "game-stats-highlighted">{game?.score}</span>&nbsp;| Turns Taken: {game?.turns_taken}
                 </div>
 
             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const CenterElement = ({value, nameArr, colorArr}) => {
 
-    const elementRadius = 20;
+    const elementRadius = 16;
 
     const defaultColor = "#fff";
     const defaultName = "";
