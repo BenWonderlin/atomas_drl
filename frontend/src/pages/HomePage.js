@@ -8,7 +8,7 @@ const HomePage = () => {
     let navigate = useNavigate();
 
     let getNewGame = async () => {
-        let response = await fetch("/new_game")
+        let response = await fetch("https://atomas-backend.herokuapp.com/new_game")
         let data = await response.json()
         navigate(`/games/${data.id}`)
     }

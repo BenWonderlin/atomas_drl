@@ -40,7 +40,7 @@ const GamePage = () => {
     var nameInput = "NAN";
 
     const getGame = async () => {
-        const response = await fetch(`/games/${id}`);
+        const response = await fetch(`https://atomas-backend.herokuapp.com/games/${id}`);
         const data = await response.json();
         setGame(data);
     }
@@ -56,7 +56,7 @@ const GamePage = () => {
         const putRequestOption = {
             method: 'PUT',
         };
-        const response = await fetch(`/games/${id}?action=${action}`,  putRequestOption);
+        const response = await fetch(`https://atomas-backend.herokuapp.com/games/${id}?action=${action}`,  putRequestOption);
         const data = await response.json()
         setGame(data);
     }
@@ -65,7 +65,7 @@ const GamePage = () => {
         const putRequestOption = {
             method: 'PUT',
         };
-        const response = await fetch(`/games/${id}?action=0&name=${nameInput}`,  putRequestOption);
+        const response = await fetch(`https://atomas-backend.herokuapp.com/games/${id}?action=0&name=${nameInput}`,  putRequestOption);
         const data = await response.json();
         setGame(data);
     }

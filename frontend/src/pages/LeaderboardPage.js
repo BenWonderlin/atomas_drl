@@ -11,7 +11,7 @@ const LeaderboardPage = () => {
     }, [])
 
     let getLeaderboard = async () => {
-        let response = await fetch('/leaderboard/')
+        let response = await fetch('https://atomas-backend.herokuapp.com/leaderboard/')
         let data = await response.json()
         console.log("DATA:", data)
         setLeaderboard(data)
