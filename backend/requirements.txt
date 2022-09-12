@@ -1,6 +1,6 @@
-fastapi==0.81.0
-numpy==1.22.3
-pydantic==1.9.0
-SQLAlchemy==1.4.39
-tensorflow==2.6.0
-uvicorn==0.18.3
+fastapi
+numpy
+pydantic
+SQLAlchemy
+tensorflow
+uvicorn
