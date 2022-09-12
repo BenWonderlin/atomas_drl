@@ -55,29 +55,32 @@ const Header = () => {
           </h2>
 
           <div className = "info-modal-subtitle">
-            This is super cool, trust me.
+            A web-based, ai-assisted implementation of the mobile game Atomas
           </div>
 
           <div className = "info-modal-entry">
             <h3>
               How do I play?
-
             </h3>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Just get good.
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build symmetric patterns on the ring by placing the center atoms. 
+            Place plus atoms on lines of symmetry to accumulate score and reduce your atom count.
+            Leverage minus atoms to adjust the arrangement of your ring before you run out of space!
           </div>
 
           <div className = "info-modal-entry">
             <h3>
               What's so deep about Deep Atomas?
             </h3>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep Q Learning.
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep Atomas is equipped with an AI agent that used Deep Q Learning to study millions of games of Atomas.
+            You can tap the brain button above the center atom to have Deep Atomas take a turn for you, but beware— 
+            Deep Atomas is currently quite shallow. It averages about 75 points per game.
           </div>
 
           <div className = "info-modal-entry">
             <h3>
               Where can I play the original Atomas?
             </h3>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google Play Store. Thanks Max Gittel!
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Gittel's Atomas is available Google Play Store and the Apple App Store. It includes some features not implemented here. Check it out!
           </div>
 
         </div>
