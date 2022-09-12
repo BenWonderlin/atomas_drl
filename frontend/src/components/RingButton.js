@@ -2,7 +2,7 @@ import React from 'react'
 
 const RingButton = ({idx, size, callback}) => {
 
-    const ringRadius = 160;
+    const ringRadius = 150;
     const buttonRadius = 8;
 
     return (

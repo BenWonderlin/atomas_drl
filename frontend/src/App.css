@@ -237,7 +237,7 @@ a {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  width: 10%;
+  width: 25%;
 }
 
 .leaderboard-item-stat-bold {
@@ -263,7 +263,7 @@ a {
 /* Game Styles */
 
 .game-header {
-  padding: 16px;
+  padding: 12px;
 }
 .game-stats {
   display: flex;
@@ -285,16 +285,16 @@ a {
   width: 0px;
   height: 0px;
   padding: 0px;
-  margin: 180px auto;
+  margin: 148px auto;
 }
 
 .game-ring-border {
 
   position: absolute;
-  margin: -128px 0px 0px -160px;
-  width: 320px;
-  height: 320px;
-  border-radius: 160px;
+  margin: -118px 0px 0px -150px;
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
 
   color: var(--color-main);
   background-color: rgb(0, 0, 0, 0);
@@ -323,8 +323,8 @@ a {
   position: absolute;
   transform: translate(-50%, -15%);
 
-  color: var(--color-gray);
-  font-size: 12px;
+  color: var(--color-white);
+  font-size: 10px;
 
 }
 
@@ -339,7 +339,7 @@ a {
 }
 
 .game-footer{
-  margin-top: 450px;
+  margin-top: 370px;
 }
 
 .game-name-input{
