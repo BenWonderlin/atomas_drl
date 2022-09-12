@@ -2,5 +2,4 @@ fastapi
 numpy
 pydantic
 SQLAlchemy
-tensorflow
 uvicorn
