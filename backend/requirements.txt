@@ -3,3 +3,4 @@ numpy
 pydantic
 SQLAlchemy
 uvicorn
+tensorflow-cpu
