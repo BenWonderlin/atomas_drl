@@ -28,7 +28,8 @@ def get_db():
         db.close()
 
 origins = [
-    "http://localhost:3000",
+    "http://localhost:5000",
+    "https://deep-atomas.herokuapp.com/"
 ]
 
 app.add_middleware(
