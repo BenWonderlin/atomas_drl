@@ -17,7 +17,10 @@ const GamePage = () => {
         "Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca",
         "Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn",
         "Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr",
-        "Nb","Mo","Tc","Ru","Rh","Pb","Ag","Cd","-","+",
+        "Nb","Mo","Tc","Ru","Rh","Pb","Ag","Cd","In","Sn",
+        "Sb","Te","I", "Xe","Cs","Ba","La","Ce","Pr","Nd",
+        "Pm","Sm","Eu","Gd",
+        "-","+",
     ] 
 
     const valueToColorArr = [
@@ -31,7 +34,11 @@ const GamePage = () => {
         "#39b975","#979273","#738498","#424242","#d4753c",
         "#3ca0d4","#d22c1f","#ff9d29","#b129ff","#d6e43a",
         "#75dceb","#8ba38c","#eea1e2","#563e32","#88d17a",
-        "#9eabbe","#dcdcdc","#5560c8", "blue", "#dc4a4a"
+        "#9eabbe","#dcdcdc","#5560c8","#408d3c","#b5a47c",
+        "#c6598c","#827498","#ff00fc","#7888ff","#ffd478",
+        "#e99c9c","#8bdbbe","#ff9329","#56e019","#65898d",
+        "#2ee99b","#bd6475","#6c64bd","#6e1289",
+        "blue", "#dc4a4a"
     ]
 
 

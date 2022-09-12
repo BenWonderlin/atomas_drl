@@ -55,7 +55,7 @@ const Header = () => {
           </h2>
 
           <div className = "info-modal-subtitle">
-            A web-based, ai-assisted implementation of the mobile game Atomas
+            An AI-assisted implementation of the mobile game Atomas
           </div>
 
           <div className = "info-modal-entry">
