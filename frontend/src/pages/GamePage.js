@@ -72,6 +72,7 @@ const GamePage = () => {
 
 
 
+
     const handleNameInput = (e) => {
         e.target.value = ("" + e.target.value).toUpperCase()
         nameInput = e.target.value
@@ -119,6 +120,16 @@ const GamePage = () => {
                     ))
                 }
 
+                {
+                    !game?.terminal &&
+                    <div className = "game-assist-button" 
+                        onClick = {() => putGameAction(-1)}
+                    >
+                    &#x1F9E0;
+                    </div>
+
+                }
+
                 <CenterElement
                     key = {0}
                     value = {game?.center_element}
@@ -141,7 +152,10 @@ const GamePage = () => {
                     </div>
 
                     <div className = "game-stats">
-                        Enter Leaderboard Name:&nbsp;&nbsp;&nbsp;
+                        Add your name to the leaderboard:&nbsp;&nbsp;&nbsp;
+                    </div>
+
+                    <div className = "game-stats">
                         <input 
                             className = "game-name-input" 
                             type = "text" 

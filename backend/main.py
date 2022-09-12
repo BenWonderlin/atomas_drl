@@ -11,6 +11,10 @@ from atomas.game_objs.RingElements import RingElement, Plus, Minus, Root
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
 
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+
 import models, schemas
 from database import SessionLocal, engine
 
@@ -98,6 +102,16 @@ async def update_game(game_id : int, action : int, name = None, db: Session = De
             db.commit()
             db.refresh(db_game)
         return db_game
+
+    if action == -1:
+
+        current_state, num_legal_actions, _, _ = ring.check()
+        model = keras.models.load_model("dqn_model")
+
+        current_state_tensor = tf.expand_dims(tf.convert_to_tensor(current_state), 0)
+        q_values = model(current_state_tensor, training = False)
+        
+        action = tf.argmax(q_values[0][:num_legal_actions]).numpy()
 
     try:
         ring.take_turn(action)
