@@ -141,7 +141,7 @@ const GamePage = () => {
                     </div>
 
                     <div className = "game-stats">
-                        Add your name to the leaderboard:&nbsp;&nbsp;&nbsp;
+                        Enter Leaderboard Name:&nbsp;&nbsp;&nbsp;
                         <input 
                             className = "game-name-input" 
                             type = "text" 
