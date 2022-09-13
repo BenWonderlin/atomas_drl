@@ -25,7 +25,7 @@ const InfoPage = () => {
             <h3>
               What's so deep about Deep Atomas?
             </h3>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep Atomas is equipped with an AI agent that uses Deep Q Learning to play and study millions of games of Atomas.
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deep Atomas is equipped with an AI agent that uses Deep Q-Learning to study millions of games of Atomas.
             Tapping the brain icon will let Deep Atomas take a turn for you, but beware— 
             Deep Atomas is currently quite shallow. It averages about 75 points per game.
           </div>
