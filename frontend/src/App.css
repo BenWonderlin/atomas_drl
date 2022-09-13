@@ -101,11 +101,25 @@ a {
 
   justify-content: center;
   align-items: center;
-  padding: 20px 20px 20px 20px;
+  padding: 8px 20px 20px 20px;
+  overflow-y: scroll;
 
-  overflow-y: auto;
-  scrollbar-width: 100px;
+}
 
+/* width */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-darker);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray);
+  border-radius: 4px;
 }
 
 
