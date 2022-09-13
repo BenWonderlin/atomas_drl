@@ -16,7 +16,7 @@ const InfoPage = () => {
             <h3>
               How do I play?
             </h3>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build symmetric patterns on the ring by placing the center atoms. 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build symmetric patterns of atoms by placing the center atoms on the outer ring. 
             Place Plus Atoms on lines of symmetry to accumulate score and reduce your atom count.
             Leverage Minus Atoms to rearrange your atoms before you run out of space!
           </div>
