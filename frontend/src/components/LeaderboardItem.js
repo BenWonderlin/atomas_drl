@@ -23,12 +23,8 @@ const LeaderboardItem = ({game, idx}) => {
             {game.turns_taken}
           </div>
 
-          {/* <div className = "leaderboard-item-stat">
-            {game.ai_assisted ? "Yes" : "No"}
-          </div> */}
-
           <div className = "leaderboard-item-stat">
-            {game.updated_at.substring(0, 10)}
+            {game.ai_assisted ? "Assisted" : "Human"}
           </div>
 
 
