@@ -129,13 +129,13 @@ a {
   color: var(--color-main);
   font-size: 28px;
   text-align: center;
-  padding: 16px 16px 8px 16px;
+  padding: 16px 16px 16px 16px;
 }
 
 .info h2{
   font-size: 20px;
   text-align: center;
-  padding: 0px 16px 0px 32px;
+  padding: 0px 32px 0px 32px;
 }
 
 .info h3{
@@ -292,6 +292,7 @@ a {
   justify-content: center;
   color: var(--color-text);
   font-size: 18px;
+  text-align: center;
 }
 .game-stats-highlighted {
   color: var(--color-main);
