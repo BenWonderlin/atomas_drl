@@ -18,6 +18,7 @@ class Game(GameBase):
 
     terminal: bool
     ai_assisted: bool
+    human_assisted: bool
 
     created_at: Union[datetime, None]
     updated_at: Union[datetime, None]
