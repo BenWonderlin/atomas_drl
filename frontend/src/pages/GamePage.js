@@ -159,7 +159,7 @@ const GamePage = () => {
                     </div>
 
                     <div className = "game-stats">
-                        Add your name to the leaderboard:&nbsp;&nbsp;&nbsp;
+                        Add your name to the leaderboard:
                     </div>
 
                     <div className = "game-stats">
