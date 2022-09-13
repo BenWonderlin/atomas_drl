@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { AiFillTrophy } from "react-icons/ai"
 import LeaderboardItem from '../components/LeaderboardItem'
 
 const LeaderboardPage = () => {

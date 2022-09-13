@@ -95,13 +95,14 @@ a {
 
 
 
-/* Modal Styles */
+/* InfoStyles */
 
 .info{
 
+  height: 640px;
   justify-content: center;
   align-items: center;
-  padding: 8px 20px 20px 20px;
+  padding: 16px 32px 16px 32px;
   overflow-y: scroll;
 
 }
@@ -119,32 +120,34 @@ a {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--color-gray);
+  height: 12px;
   border-radius: 4px;
 }
 
 
-
 .info h1{
   color: var(--color-main);
-  font-size: 24px;
+  font-size: 28px;
   text-align: center;
-  padding: 8px 16px 8px 16px;
+  padding: 16px 16px 8px 16px;
 }
 
 .info h2{
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
+  padding: 0px 16px 8px 16px;
 }
 
 .info h3{
   color: var(--color-main-light);
-  font-size: 16px;
+  font-size: 20px;
   text-align: left;
+  padding-bottom: 4px;
 }
 
 .info-entry{
   font-size: 14px;
-  padding: 16px 16px 16px 16px;
+  padding: 24px 16px 24px 16px;
 }
 
 
@@ -223,9 +226,8 @@ a {
 .leaderboard-list {
   padding: 0;
   margin: 0px;
-  height: 70vh;
+  height: 600px;
   overflow-y: auto;
-  scrollbar-width: 100px;
 }
 
 .leaderboard-list::-webkit-scrollbar {
