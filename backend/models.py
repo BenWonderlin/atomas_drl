@@ -20,6 +20,7 @@ class Game(Base):
 
     terminal = Column(Boolean, default = False)
     ai_assisted = Column(Boolean, default = False)
+    human_assisted = Column(Boolean, default = False)
 
     created_at = Column(DateTime(timezone = True), default = func.now())
     updated_at = Column(DateTime(timezone = True), default = func.now(), onupdate = func.now())

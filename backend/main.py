@@ -103,6 +103,7 @@ async def update_game(game_id : int, action : int, name = None, db: Session = De
             db.refresh(db_game)
         return db_game
 
+
     if action == -1:
 
         current_state, num_legal_actions = ring.get_state(), ring.get_atom_count()
@@ -113,12 +114,19 @@ async def update_game(game_id : int, action : int, name = None, db: Session = De
 
         action = tf.argmax(q_values[0][:num_legal_actions]).numpy()
 
+        db_game.ai_assisted = True
+        
+    else:
+        db_game.human_assisted = True
+
+
     try:
         ring.take_turn(action)
     except ValueError:
         raise HTTPException(status_code = 400, detail = f"Invalid action syntax")
     except IndexError:
         raise HTTPException(status_code = 400, detail = f"Action index out of range")
+
 
     db_game.object = pickle.dumps(ring)
     db_game.score = ring.get_score()

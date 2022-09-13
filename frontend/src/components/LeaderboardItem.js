@@ -24,7 +24,15 @@ const LeaderboardItem = ({game, idx}) => {
           </div>
 
           <div className = "leaderboard-item-stat">
-            {game.ai_assisted ? "Assisted" : "Human"}
+            {
+              game.ai_assisted && game.human_assisted && "AI-Assisted"
+            }
+            {
+              game.ai_assisted && !game.human_assisted && "Bot"
+            }
+            {
+              !game.ai_assisted && game.human_assisted && "Human"
+            }
           </div>
 
 
