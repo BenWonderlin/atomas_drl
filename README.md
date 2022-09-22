@@ -8,4 +8,6 @@ Source code for Deep Atomas, an AI-assisted implementation of the mobile game At
 
 - Frontend: ReactJS
 
+- Database: SQLite
+
 - Host: Heroku
