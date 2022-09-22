@@ -4,8 +4,8 @@ Source code for Deep Atomas, an AI-assisted implementation of the mobile game At
 
 ### Tools Used
 
-> Backend: Python + TensorFlow + FastAPI 
+- Backend: Python + TensorFlow + FastAPI 
 
-> Frontend: ReactJS
+- Frontend: ReactJS
 
-> Host: Heroku
+- Host: Heroku
